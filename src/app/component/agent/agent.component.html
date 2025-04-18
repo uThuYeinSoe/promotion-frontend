@@ -1,0 +1,50 @@
+<div class="agentInnerContainer">
+  <div class="navbar">
+    <button class="promotion-button" (click)="onConfirm()">Create Agent</button>
+  </div>
+  <div class="table">
+    <app-table
+      [columns]="columns"
+      [data]="data"
+      [dataKeys]="dataKeys"
+      (actionClicked)="onAgentAction($event)"
+    ></app-table>
+  </div>
+
+  <app-custom-popup *ngIf="showPopup" class="popup-container">
+    <div popup-title>Confirm Action</div>
+    <app-custom-input
+      [type]="agentCreateType"
+      [(value)]="agentPassword"
+      [placeHolder]="agentPasswordName"
+    ></app-custom-input>
+    <div popup-footer>
+      <button (click)="agentCreate()" class="promotion-button">Create</button>
+      <button (click)="onCancel()" class="promotion-button">Cancel</button>
+    </div>
+  </app-custom-popup>
+
+  <app-custom-popup *ngIf="ticketTransferPopup" class="popup-container">
+    <div popup-title>Confirm Action</div>
+    <app-custom-input
+      [type]="agentTransferIdType"
+      [(value)]="ticketTransferId"
+      [disabled]="inputDisabled"
+      class="ticketTransferId"
+    ></app-custom-input>
+    <app-custom-input
+      [type]="ticketTransferAmtType"
+      [(value)]="ticketTransferAmt"
+      [placeHolder]="ticketTransferAmtTypeName"
+      class="ticketTransferAmt"
+    ></app-custom-input>
+    <div popup-footer>
+      <button (click)="ticketTransfer()" class="promotion-button">
+        Transfer
+      </button>
+      <button (click)="onTransferPopUpCancle()" class="promotion-button">
+        Cancel
+      </button>
+    </div>
+  </app-custom-popup>
+</div>

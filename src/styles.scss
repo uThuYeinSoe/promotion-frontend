@@ -1,0 +1,95 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Hurricane&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+
+@import "@fortawesome/fontawesome-free/css/all.min.css";
+
+/*
+  --- 01 Typography System
+  -Font Size(px)
+  10 / 12 / 14 / 16 / 18 / 20 / 24 / 30 / 36 / 44 / 52 / 62 / 74 / 86 / 98
+
+  -Font Family
+  Google Font :Inter
+  			        -	Clicker Script
+  default : sans-serif
+  -Font Weight
+  default : 400
+  heading-primary : 700
+  -Line Height
+  default : 1
+  heading-primary : 1.1
+  --- 02 Color
+  -Primary : ;
+  -Tints : ,
+  -Shades : ,
+  -Accents
+  -Grays : ;
+  --- 03 Shadow
+  --- 04 Border Radius
+  default : 9px;
+  -Spacing System(px)
+  2 / 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 80 / 96 / 128
+  */
+
+:root {
+  --selected-color: #f29620;
+  --selected-bgcolor: #261d13;
+  --navbar-bgcolor: #0e1012;
+  --main-bgcolor: #030304;
+  --main-text-color: #fefefe;
+  --selected-bgcolor: #232627;
+  --selected-text: #030304;
+  --secondory-text: #8aabb9;
+  --component-bg: #8aabb9;
+  --green: #45f882;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  /*Font-size => 10 */
+  font-size: 62.5%;
+  /* scroll-behavior: smooth; */
+}
+
+body {
+  font-family: "Open-Sans", sans-serif;
+  font-weight: 400;
+  color: var(--main-text-color);
+  line-height: 1;
+}
+
+.hurricane-regular {
+  font-family: "Hurricane", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+html,
+body {
+  height: 100%;
+  font-family: Open Sans;
+}
+body {
+  background: var(--main-bgcolor);
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: "Open Sans", sans-serif;
+}
+.main {
+  max-width: 146rem;
+  margin: 0 auto;
+  min-height: 100vh;
+}

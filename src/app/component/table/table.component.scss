@@ -1,0 +1,28 @@
+table {
+  font-size: 1.6rem;
+  thead {
+    tr {
+      height: 4rem;
+      background-color: var(--selected-color);
+    }
+  }
+  tbody {
+    tr {
+      height: 3.5rem;
+      text-align: center;
+      .action-button {
+        font-size: 1.6rem;
+        background-color: transparent;
+        color: var(--main-text-color);
+        padding: 0.3rem 2rem;
+        border: 1px solid var(--main-text-color);
+        cursor: pointer;
+        border-radius: 0.9rem;
+        &:hover {
+          background-color: var(--selected-color);
+          color: var(--navbar-bgcolor);
+        }
+      }
+    }
+  }
+}

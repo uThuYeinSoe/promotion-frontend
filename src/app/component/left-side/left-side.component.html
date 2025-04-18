@@ -1,0 +1,13 @@
+<div class="mainleft-container">
+  <h3 class="nav-title">Naviagte</h3>
+  <ul class="nav-gp">
+    <li
+      class="nav"
+      *ngFor="let item of filteredMenuItem"
+      (click)="onItemClick(item.value)"
+    >
+      <i class="{{ item.icon }}"></i>
+      <span>{{ item.label }}</span>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,13 @@
+<div class="main-sideContainer">
+  <app-home *ngIf="navCode === '01000'"></app-home>
+  <app-agent *ngIf="navCode === '02000'"></app-agent>
+  <app-ticket-create-history
+    *ngIf="navCode === '03000'"
+  ></app-ticket-create-history>
+  <app-ticket-transaction-history
+    *ngIf="navCode === '04000'"
+  ></app-ticket-transaction-history>
+  <app-game *ngIf="navCode === '05000'"></app-game>
+  <app-reward *ngIf="navCode === '06000'"></app-reward>
+  <app-logout *ngIf="navCode === '07000'"></app-logout>
+</div>

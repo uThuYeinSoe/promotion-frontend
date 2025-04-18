@@ -1,0 +1,26 @@
+<table border="1" style="width: 100%; border-collapse: collapse">
+  <thead>
+    <tr>
+      <th *ngFor="let col of columns">{{ col }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let row of data; let i = index">
+      <td *ngFor="let col of dataKeys">
+        <ng-container [ngSwitch]="col">
+          <ng-container *ngSwitchCase="'index'">
+            {{ i + 1 }}
+          </ng-container>
+          <ng-container *ngSwitchCase="'action'">
+            <button (click)="onAction(row)" class="action-button">
+              Action
+            </button>
+          </ng-container>
+          <ng-container *ngSwitchDefault>
+            {{ row[col] }}
+          </ng-container>
+        </ng-container>
+      </td>
+    </tr>
+  </tbody>
+</table>

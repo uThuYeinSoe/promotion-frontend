@@ -1,0 +1,29 @@
+<div class="ticket-create-inner">
+  <div class="navbar">
+    <button class="promotion-button" (click)="onConfirm()">
+      Create Ticket
+    </button>
+  </div>
+  <div class="table">
+    <app-table
+      [columns]="columns"
+      [data]="data"
+      [dataKeys]="dataKeys"
+    ></app-table>
+  </div>
+
+  <app-custom-popup *ngIf="showPopup" class="popup-container">
+    <div popup-title>Confirm Action</div>
+    <app-custom-input
+      [type]="ticketAmtType"
+      [(value)]="ticketAmt"
+      [placeHolder]="ticketAmtName"
+    ></app-custom-input>
+    <div popup-footer>
+      <button (click)="ticketAmtConfirm()" class="promotion-button">
+        Confirm
+      </button>
+      <button (click)="onCancel()" class="promotion-button">Cancel</button>
+    </div>
+  </app-custom-popup>
+</div>

@@ -1,0 +1,13 @@
+input {
+  width: 100%;
+  height: 4.9rem;
+  font-size: 1.6rem;
+  padding-left: 1rem;
+  border-radius: 1rem;
+}
+input::placeholder {
+  color: var(--selected-bgcolor);
+}
+.disable_design {
+  cursor: not-allowed;
+}

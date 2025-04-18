@@ -1,0 +1,27 @@
+.main-component {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 3fr 15rem;
+  grid-template-areas:
+    "main-navbar main-navbar main-navbar"
+    "main-left main-middle main-right";
+  grid-template-rows: auto 1fr;
+  height: 100vh;
+}
+
+.main-navbar {
+  grid-area: main-navbar;
+  margin-bottom: 1.5rem;
+}
+.main-left {
+  grid-area: main-left;
+}
+
+.main-middle {
+  grid-area: main-middle;
+}
+
+.main-right {
+  grid-area: main-right;
+  background-color: aquamarine;
+}

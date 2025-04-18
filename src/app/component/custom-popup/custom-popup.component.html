@@ -1,0 +1,15 @@
+<div class="popup-backdrop">
+  <div class="popup-container">
+    <header class="popup-header">
+      <ng-content select="[popup-title]"></ng-content>
+    </header>
+
+    <div class="popup-body">
+      <ng-content></ng-content>
+    </div>
+
+    <footer class="popup-footer">
+      <ng-content select="[popup-footer]"></ng-content>
+    </footer>
+  </div>
+</div>

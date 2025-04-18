@@ -1,0 +1,44 @@
+.nav-container {
+  width: 100%;
+  background-color: var(--navbar-bgcolor);
+  height: 9.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  .announcement {
+    display: flex;
+    font-size: 3.2rem;
+    background-color: var(--selected-bgcolor);
+    padding: 1rem 2rem;
+    gap: 1rem;
+    align-items: center;
+    border-radius: 1rem;
+    cursor: pointer;
+    .accoucement-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font-size: 4.8rem;
+      color: var(--navbar-bgcolor);
+      background-color: var(--selected-color);
+      padding: 1rem;
+    }
+  }
+  .profile {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    .profile-icon {
+      font-size: 3.2rem;
+      background-color: var(--selected-bgcolor);
+      padding: 1rem;
+      border-radius: 50%;
+    }
+    .profile-data {
+      font-size: 2rem;
+      cursor: pointer;
+    }
+  }
+}

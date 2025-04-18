@@ -1,0 +1,18 @@
+<div class="login-container">
+  <div class="login-component">
+    <h3 class="login-title">Sign In To Your Account</h3>
+    <form (ngSubmit)="login()" class="form-container">
+      <app-custom-input
+        [type]="randomIdType"
+        [(value)]="randomId"
+        [placeHolder]="randomIdName"
+      ></app-custom-input>
+      <app-custom-input
+        [type]="passwordType"
+        [(value)]="password"
+        [placeHolder]="passwordName"
+      ></app-custom-input>
+      <button type="submit">Login</button>
+    </form>
+  </div>
+</div>
