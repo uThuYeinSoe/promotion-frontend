@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 export class GameService {
   gameCreateRoute = 'promotion/g/game';
   getGameAllRoute = 'promotion/g/gameAll';
+  assigngameRoute = 'promotion/g/assignGame';
 
   constructor(private apiCallService: ApiCallService) {}
 
@@ -21,5 +22,9 @@ export class GameService {
 
   getGameAll(): Observable<any> {
     return this.apiCallService.get(this.getGameAllRoute);
+  }
+
+  assignGame(payload: any): Observable<any> {
+    return this.apiCallService.post(this.assigngameRoute, payload);
   }
 }

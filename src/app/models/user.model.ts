@@ -3,4 +3,6 @@ export interface User {
   role: string;
   ticketAmt: number;
   sideMenu: any[];
+  gameAuthority: any[];
+  game: any[];
 }

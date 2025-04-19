@@ -1,1 +1,43 @@
-<p>game-authority-create works!</p>
+<div class="gameAuthorityCreateContainer">
+  <div class="agent-selected-gp">
+    <div class="input-container">
+      <app-custom-select
+        [options]="agentStatus"
+        [(value)]="selectedAgentStatusList"
+        [disabled]="agentSelectedDisabled"
+      ></app-custom-select>
+    </div>
+    <button class="promotion-button" (click)="agentConfirm()">Confirm</button>
+  </div>
+  <p class="showAgentId">
+    Selected Agent Random Id : {{ selectedAgentStatusList }}
+  </p>
+
+  <div class="line" *ngIf="showGameCatComponent"></div>
+
+  <div class="game-selected-gp" *ngIf="showGameCatComponent">
+    <div class="input-container">
+      <app-custom-select
+        [options]="gameStatus"
+        [(value)]="selectedGameStatus"
+      ></app-custom-select>
+    </div>
+    <button class="promotion-button" (click)="gameConfirm()">Add</button>
+  </div>
+
+  <app-table
+    [columns]="columns"
+    [data]="data"
+    [dataKeys]="dataKeys"
+    (actionClicked)="onRemoveGameList($event)"
+    *ngIf="showGameCatComponent"
+  ></app-table>
+
+  <button
+    class="agent-button"
+    (click)="agentAndGameAuthSubmit()"
+    *ngIf="showGameCatComponent"
+  >
+    Add Agent With Game
+  </button>
+</div>

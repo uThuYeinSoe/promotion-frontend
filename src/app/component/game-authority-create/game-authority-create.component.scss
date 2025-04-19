@@ -1,0 +1,53 @@
+.gameAuthorityCreateContainer {
+  width: 100%;
+  background-color: var(--navbar-bgcolor);
+  padding: 1.6rem 3.2rem;
+
+  .agent-selected-gp,
+  .game-selected-gp {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 2.4rem;
+    .input-container {
+      width: 50%;
+    }
+    .promotion-button {
+      font-size: 1.6rem;
+      font-weight: 600;
+      padding: 1.6rem 3.2rem;
+      border-radius: 1rem;
+      cursor: pointer;
+      transition: all linear 0.2s;
+      border: none;
+      outline: none;
+      &:hover {
+        background-color: var(--selected-color);
+        border: none;
+        outline: none;
+      }
+    }
+  }
+  .showAgentId {
+    font-size: 1.8rem;
+  }
+  .game-selected-gp {
+    margin-top: 2rem;
+    margin-bottom: 1.6rem;
+  }
+  .agent-button {
+    margin-top: 1.6rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+    padding: 1.6rem 3.2rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: all linear 0.2s;
+    border: none;
+    outline: none;
+    &:hover {
+      background-color: var(--selected-color);
+      border: none;
+      outline: none;
+    }
+  }
+}

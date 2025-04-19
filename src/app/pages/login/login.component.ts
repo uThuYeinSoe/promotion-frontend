@@ -53,7 +53,12 @@ export class LoginComponent {
             next: (res) => {
               this.userData.setRole(res.role);
               this.userData.setSideMenu(res.sideMenus);
-              console.log(this.userData.getUserObservable());
+              this.userData.setGame(res.gameList);
+              this.userData.setGameAuthority(res.agentGameAuthorityList);
+
+              this.userData.getUserObservable().subscribe((userData) => {
+                console.log(userData);
+              });
             },
             error: (err) => {
               console.log('Profile Error!', err);

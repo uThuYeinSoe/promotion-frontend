@@ -1,1 +1,28 @@
-<p>game-authority works!</p>
+<div class="gameAuthInnerComponent">
+  <div class="navbar">
+    <button
+      class="promotion-button"
+      (click)="onConfirm()"
+      *ngIf="!showGameCreatePage"
+    >
+      Agent And Game Join Authority
+    </button>
+    <button
+      class="promotion-button"
+      (click)="backConfirm()"
+      *ngIf="showGameCreatePage"
+    >
+      Back
+    </button>
+  </div>
+  <div class="table" *ngIf="!showGameCreatePage">
+    <app-table
+      [columns]="columns"
+      [data]="data"
+      [dataKeys]="dataKeys"
+    ></app-table>
+  </div>
+  <app-game-authority-create
+    *ngIf="showGameCreatePage"
+  ></app-game-authority-create>
+</div>

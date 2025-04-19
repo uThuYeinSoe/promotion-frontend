@@ -9,6 +9,7 @@ import { GameComponent } from '../game/game.component';
 import { RewardComponent } from '../reward/reward.component';
 import { LogoutComponent } from '../logout/logout.component';
 import { AgentComponent } from '../agent/agent.component';
+import { GameAuthorityComponent } from '../game-authority/game-authority.component';
 
 @Component({
   selector: 'app-main-side',
@@ -21,6 +22,7 @@ import { AgentComponent } from '../agent/agent.component';
     RewardComponent,
     LogoutComponent,
     AgentComponent,
+    GameAuthorityComponent,
   ],
   templateUrl: './main-side.component.html',
   styleUrl: './main-side.component.scss',

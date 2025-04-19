@@ -11,6 +11,8 @@ export class UserDataService {
     role: '',
     ticketAmt: 0,
     sideMenu: [],
+    gameAuthority: [],
+    game: [],
   });
 
   constructor() {}
@@ -39,12 +41,24 @@ export class UserDataService {
     this.userSubject.next({ ...user, sideMenu });
   }
 
+  setGameAuthority(gameAuthority: any[]) {
+    const user = this.userSubject.value;
+    this.userSubject.next({ ...user, gameAuthority });
+  }
+
+  setGame(game: any[]) {
+    const user = this.userSubject.value;
+    this.userSubject.next({ ...user, game });
+  }
+
   clearUser() {
     this.userSubject.next({
       randomId: '',
       role: '',
       ticketAmt: 0,
       sideMenu: [],
+      gameAuthority: [],
+      game: [],
     });
   }
 }
