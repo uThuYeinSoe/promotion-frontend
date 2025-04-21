@@ -10,6 +10,7 @@ export class TicketCreateService {
 
   ticketCreateHistoryRoute = 'promotion/tc/ticketHistory';
   ticketCreateRoute = 'promotion/tc/ticket';
+  gameItemTicketCreateRoute = 'promotion/gtc/gameTicket';
 
   ticketCreateHistory(): Observable<any> {
     return this.apiCallService.get(this.ticketCreateHistoryRoute);
@@ -17,5 +18,13 @@ export class TicketCreateService {
 
   ticketCreate(ticketObj: any): Observable<any> {
     return this.apiCallService.post(this.ticketCreateRoute, ticketObj);
+  }
+
+  gameItemTicketCreate(data: any): Observable<any> {
+    return this.apiCallService.post(this.gameItemTicketCreateRoute, data);
+  }
+
+  gameItemTicketGetByAgent(): Observable<any> {
+    return this.apiCallService.get(this.gameItemTicketCreateRoute);
   }
 }

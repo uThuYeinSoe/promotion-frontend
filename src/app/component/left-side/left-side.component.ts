@@ -48,6 +48,11 @@ export class LeftSideComponent implements OnInit {
       value: '08000',
     },
     {
+      icon: 'fa-solid fa-gamepad',
+      label: 'Game Item',
+      value: '09000',
+    },
+    {
       icon: 'fa-solid fa-trophy',
       label: 'Reward',
       value: '06000',

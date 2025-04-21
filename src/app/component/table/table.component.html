@@ -16,6 +16,11 @@
               Action
             </button>
           </ng-container>
+          <ng-container *ngSwitchCase="'action2'">
+            <button (click)="onAction2(row)" class="action-button">
+              Action
+            </button>
+          </ng-container>
           <ng-container *ngSwitchDefault>
             {{ row[col] }}
           </ng-container>

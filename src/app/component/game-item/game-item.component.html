@@ -1,0 +1,92 @@
+<div class="gameItemInnerContainer" *ngIf="userRole == 'AGENT'">
+  <div class="navbar">
+    <button class="promotion-button" (click)="onOpenCreateTicketPopUp()">
+      Create Ticket
+    </button>
+
+    <button
+      class="promotion-button"
+      (click)="onConfirm()"
+      *ngIf="!gameTicketComponent"
+    >
+      Create Game Item
+    </button>
+
+    <button
+      class="promotion-button"
+      (click)="onBack()"
+      *ngIf="gameTicketComponent"
+    >
+      Back
+    </button>
+  </div>
+  <div class="table" *ngIf="!gameTicketComponent">
+    <app-table
+      [columns]="columns"
+      [data]="data"
+      [dataKeys]="dataKeys"
+      (actionClicked)="onShowTicket($event)"
+      (action2Clickd)="onChangeGameItemStatus($event)"
+    ></app-table>
+  </div>
+
+  <app-custom-popup *ngIf="showPopup" class="popup-container">
+    <div popup-title class="popup-title">Confirm Action</div>
+    <app-custom-select
+      [options]="gameStatusList"
+      [(value)]="selectedGameStatusList"
+      placeholder="Select a Game"
+    ></app-custom-select>
+    <app-custom-input
+      [type]="gameItemType"
+      [(value)]="gameItemVal"
+      [placeHolder]="gameItemValName"
+    ></app-custom-input>
+    <app-custom-input
+      [type]="gameItemDescType"
+      [(value)]="gameItemDescVal"
+      [placeHolder]="gameItemDescName"
+    ></app-custom-input>
+    <div popup-footer>
+      <button (click)="onGameItemAdd()" class="promotion-button">
+        Confirm
+      </button>
+      <button (click)="onCancel()" class="promotion-button">Cancel</button>
+    </div>
+  </app-custom-popup>
+
+  <app-custom-popup
+    *ngIf="showCreateTicketPopUp"
+    class="popup-container showCreateTicketPopUpContainer"
+  >
+    <div popup-title class="popup-title">Confirm Action</div>
+    <div class="inputContainer">
+      <app-custom-select
+        [options]="gameStatusList"
+        [(value)]="selectedGameStatusList"
+        placeholder="Select a Game"
+        (valueChange)="onGameStatusChange($event)"
+      ></app-custom-select>
+    </div>
+    <app-custom-select
+      [options]="gameItemList"
+      [(value)]="selectedGameItemStatus"
+      placeholder="Select a Game"
+    ></app-custom-select>
+    <app-custom-input
+      [type]="ticketAmtType"
+      [(value)]="ticketAmtVal"
+      [placeHolder]="ticketAmtName"
+    ></app-custom-input>
+    <div popup-footer>
+      <button (click)="onCreateGameTicket()" class="promotion-button">
+        Confirm
+      </button>
+      <button (click)="onShowCreateTicketPopUp()" class="promotion-button">
+        Cancel
+      </button>
+    </div>
+  </app-custom-popup>
+
+  <app-show-ticket *ngIf="gameTicketComponent"></app-show-ticket>
+</div>

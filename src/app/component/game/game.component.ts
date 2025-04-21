@@ -6,6 +6,7 @@ import { CustomInputComponent } from '../custom-input/custom-input.component';
 import { CustomSelectComponent } from '../custom-select/custom-select.component';
 import { Game } from '../../models/game.model';
 import { GameService } from '../../services/game.service';
+import { UserDataService } from '../../services/user-data.service';
 
 @Component({
   selector: 'app-game',
@@ -24,6 +25,7 @@ export class GameComponent implements OnInit {
   showPopup = false;
   updatePopUp = false;
   disabledStatus = true;
+  userRole = '';
 
   gameCodeType = 'text';
   gameNameType = 'text';
@@ -55,6 +57,22 @@ export class GameComponent implements OnInit {
   ];
   data = [];
 
+  agentColumn = [
+    'No',
+    'Game Code',
+    'Game Name',
+    'Game Status',
+    'Conversion Rate',
+  ];
+  agentDataKey: string[] = [
+    'index',
+    'gameCode',
+    'gameName',
+    'gameStatus',
+    'conversationRate',
+  ];
+  agentData = [];
+
   gameStatusList = [
     { label: 'True', value: true },
     { label: 'False', value: false },
@@ -65,12 +83,21 @@ export class GameComponent implements OnInit {
   gameIdType = 'text';
   gameIdVal = '';
 
-  constructor(private gameService: GameService) {}
+  constructor(
+    private gameService: GameService,
+    private userData: UserDataService
+  ) {
+    this.userData.getUserObservable().subscribe((userData) => {
+      this.userRole = userData.role;
+      console.log(this.userRole);
+    });
+  }
 
   async ngOnInit() {
     try {
       let resObj = await this.gameService.getGameAll().toPromise();
       this.data = resObj.gameList;
+      this.agentData = resObj.gameList;
       console.log(resObj);
     } catch (err) {
       console.log(err);

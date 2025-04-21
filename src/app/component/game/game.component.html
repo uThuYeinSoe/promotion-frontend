@@ -1,4 +1,4 @@
-<div class="gameInnerContainer">
+<div class="gameInnerContainer" *ngIf="userRole == 'ADMIN'">
   <div class="navbar">
     <button class="promotion-button" (click)="onConfirm()">Create Game</button>
   </div>
@@ -66,4 +66,14 @@
       <button (click)="onCancel()" class="promotion-button">Cancel</button>
     </div>
   </app-custom-popup>
+</div>
+
+<div class="gameInnerContainer" *ngIf="userRole == 'AGENT'">
+  <div class="table">
+    <app-table
+      [columns]="agentColumn"
+      [data]="agentData"
+      [dataKeys]="agentDataKey"
+    ></app-table>
+  </div>
 </div>

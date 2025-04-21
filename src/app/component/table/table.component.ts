@@ -14,7 +14,12 @@ export class TableComponent {
   @Input() data: any[] = [];
 
   @Output() actionClicked = new EventEmitter<any>();
+  @Output() action2Clickd = new EventEmitter<any>();
+
   onAction(row: any) {
     this.actionClicked.emit(row);
+  }
+  onAction2(row: any) {
+    this.action2Clickd.emit(row);
   }
 }

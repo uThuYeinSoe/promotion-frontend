@@ -1,0 +1,11 @@
+.userHomeContainer {
+  width: 100%;
+  .cardContainerTitle {
+    margin-top: 2.4rem;
+    font-size: 3.2rem;
+  }
+  .cardContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
