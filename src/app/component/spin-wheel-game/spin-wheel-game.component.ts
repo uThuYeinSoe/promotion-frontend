@@ -1,5 +1,13 @@
-import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  ViewChild,
+  AfterViewInit,
+  OnInit,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+import { SpinserviceService } from '../../services/spinservice.service';
 
 @Component({
   selector: 'app-spin-wheel-game',
@@ -8,25 +16,12 @@ import { CommonModule } from '@angular/common';
   templateUrl: './spin-wheel-game.component.html',
   styleUrl: './spin-wheel-game.component.scss',
 })
-export class SpinWheelGameComponent implements AfterViewInit {
-  wheelItems = [
-    'i Phone',
-    'Samsung Phone',
-    'Power Bank',
-    'Unit 1000',
-    '100000',
-    'Unit 1000',
-    '20000',
-    'Unit 1000',
-    'Thank You',
-    'Unit 1000',
-    'Thanks You',
-    'Unit 30000',
-    'Unit 1000',
-    'Unit 7000',
-    'Unit 1000',
-    'Unit 5000',
-  ];
+export class SpinWheelGameComponent implements OnInit, AfterViewInit {
+  wheelItems: any = [];
+
+  allGameItemsObj: any = [];
+
+  winingGameItemObj: any;
 
   wheelColors = [
     '#ff5733',
@@ -61,13 +56,27 @@ export class SpinWheelGameComponent implements AfterViewInit {
 
   @ViewChild('wheel') wheel!: ElementRef;
 
+  constructor(private spinServcie: SpinserviceService) {}
+
+  async ngOnInit() {
+    try {
+      const resObj = await this.spinServcie.getGameItemByGameId(1).toPromise();
+      this.allGameItemsObj = resObj.gameItemDtos;
+      this.wheelItems = this.allGameItemsObj.map(
+        (game: any) => game.gameItemName
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   ngAfterViewInit() {
     while (this.wheelItems.length < 15) {
       this.wheelItems.push('');
     }
   }
 
-  spin() {
+  async spin() {
     if (this.isSpinning) return;
 
     this.isSpinning = true;
@@ -78,7 +87,16 @@ export class SpinWheelGameComponent implements AfterViewInit {
     const sliceAngle = 360 / totalSlices;
 
     // ✨ ကိုယ်တိုင် ထိန်းချုပ်ချင်တဲ့ item ရဲ့ index ကို ထည့်ပါ။ ဥပမာ - index 5 ကို ရွေးချယ်ချင်ရင် 5 လို့ ထည့်ပါ။
-    const desiredIndex = 6;
+    let desiredIndex = 6;
+
+    try {
+      let resObj = await this.spinServcie.getWinObj().toPromise();
+      this.winingGameItemObj = resObj.spinWheelWinObj;
+      desiredIndex = this.allGameItemsObj.findIndex(
+        (game: any) => game.gameItemName === this.winingGameItemObj.gameItemName
+      );
+      console.log(desiredIndex);
+    } catch (err) {}
 
     // ✨ index က wheelItems array ထဲမှာ ရှိနေလားဆိုတာကို စစ်ဆေးပါ။
     const randomIndex =
@@ -106,12 +124,19 @@ export class SpinWheelGameComponent implements AfterViewInit {
     setTimeout(() => {
       this.isSpinning = false;
       this.selectedItem = this.wheelItems[randomIndex];
-      this.resultText = `You won ${this.getSliceName(this.selectedItem)}!`;
+      // this.resultText = `You won ${this.getSliceName(this.selectedItem)}!`;
     }, 5000);
   }
 
   getSliceRotation(index: number): number {
     return (360 / this.wheelItems.length) * index;
+  }
+
+  shuffleArray(array: any[]): any[] {
+    return array
+      .map((value) => ({ value, sort: Math.random() }))
+      .sort((a, b) => a.sort - b.sort)
+      .map(({ value }) => value);
   }
 
   getSliceName(item: string): string {

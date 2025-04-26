@@ -105,8 +105,8 @@ export class GameComponent implements OnInit {
   }
 
   onConfirm() {
-    this.showPopup = true;
-    console.log('Confirmed!');
+    // this.showPopup = true;
+    // console.log('Confirmed!');
   }
 
   gamePayload: Game = {

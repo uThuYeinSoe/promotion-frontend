@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -8,11 +8,14 @@ import { Router } from '@angular/router';
   styleUrl: './card.component.scss',
 })
 export class CardComponent {
-  cardImage = 'assets/images/cardImg.png';
+  @Input() cardImage = '';
+  @Input() cardTitle = '';
+  @Input() cardPrice = '';
+  @Input() gameRoute = '';
 
   constructor(private router: Router) {}
 
   goGame() {
-    this.router.navigate(['/spinwheel']);
+    this.router.navigate([`/${this.gameRoute}`]);
   }
 }

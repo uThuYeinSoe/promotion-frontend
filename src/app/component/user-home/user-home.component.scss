@@ -3,9 +3,11 @@
   .cardContainerTitle {
     margin-top: 2.4rem;
     font-size: 3.2rem;
+    margin-bottom: 2.4rem;
   }
   .cardContainer {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
+    gap: 1.6rem;
   }
 }

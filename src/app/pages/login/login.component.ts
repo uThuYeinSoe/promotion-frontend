@@ -53,7 +53,7 @@ export class LoginComponent {
             next: (res) => {
               this.userData.setRole(res.role);
               this.userData.setSideMenu(res.sideMenus);
-              this.userData.setGame(res.gameList);
+              this.userData.setGame(res.gameResponseObjList);
               this.userData.setGameAuthority(res.agentGameAuthorityList);
 
               this.userData.getUserObservable().subscribe((userData) => {

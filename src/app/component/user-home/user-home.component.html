@@ -3,6 +3,12 @@
   <app-leader-board></app-leader-board>
   <h2 class="cardContainerTitle">Recent Game</h2>
   <div class="cardContainer">
-    <app-card></app-card>
+    <app-card
+      *ngFor="let game of gameAccessComponentArr"
+      [cardImage]="cardImage"
+      [cardTitle]="game.gameName"
+      [cardPrice]="game.gameConversion"
+      [gameRoute]="game.gameRoute"
+    ></app-card>
   </div>
 </div>
