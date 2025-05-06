@@ -46,35 +46,36 @@ export class DiceComponent implements OnInit {
       const resObj = await this.spinServcie.getGameItemByGameId(4).toPromise();
       this.allGameItemsObj = resObj.gameItemDtos;
       this.items = this.allGameItemsObj.map((game: any) => game.gameItemDesc);
-      console.log(this.allGameItemsObj);
-      console.log(this.items);
     } catch (err) {}
   }
 
-  rollDice() {
+  dice1Val: number = 0;
+  dice2Val: number = 0;
+
+  async rollDice() {
     this.isRolling = true;
     this.dice1 = 0;
     this.dice2 = 0;
+
+    try {
+      const resObj = await this.spinServcie.getDiceWinObj().toPromise();
+      this.dice1Val = resObj.diceWinObj.diceNumberObjList[0];
+      this.dice2Val = resObj.diceWinObj.diceNumberObjList[1];
+      console.log(resObj);
+      console.log(this.dice1Val);
+      console.log(this.dice2Val);
+    } catch (err) {
+      console.log(err);
+    }
+
     this.animation1 = true;
     setTimeout(() => (this.animation2 = true), 100);
 
-    let newDice1: number;
-    if (this.inputDice1 === 0) {
-      newDice1 = this.getRandom();
-    } else {
-      newDice1 = Math.min(Math.max(this.inputDice1, 1), 6);
-    }
-
-    let newDice2: number;
-    if (this.inputDice2 === 0) {
-      newDice2 = this.getRandom();
-    } else {
-      newDice2 = Math.min(Math.max(this.inputDice2, 1), 6);
-    }
-
     setTimeout(() => {
-      this.dice1 = newDice1;
-      this.dice2 = newDice2;
+      this.dice1 = this.dice1Val;
+      this.dice2 = this.dice2Val;
+      console.log(this.dice1);
+      console.log(this.dice2);
       this.dice1Transform = this.faceTransforms[this.dice1];
       this.dice2Transform = this.faceTransforms[this.dice2];
       const total = this.dice1 + this.dice2;

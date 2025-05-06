@@ -8,6 +8,8 @@ import { Observable, of } from 'rxjs';
 export class SpinserviceService {
   gameItemByGameIdRoute = 'promotion/gi/gameItem/';
   getWinObjUrl = 'promotion/pinwheel/winningValue';
+  diceWinUrl = 'promotion/dice/winningValue';
+
   constructor(private apiCallService: ApiCallService) {}
 
   getGameItemByGameId(gameId: number): Observable<any> {
@@ -17,5 +19,9 @@ export class SpinserviceService {
 
   getWinObj(): Observable<any> {
     return this.apiCallService.get(this.getWinObjUrl);
+  }
+
+  getDiceWinObj(): Observable<any> {
+    return this.apiCallService.get(this.diceWinUrl);
   }
 }
