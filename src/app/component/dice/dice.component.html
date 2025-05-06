@@ -1,1 +1,87 @@
-<p>dice works!</p>
+<div class="dice-wrapper">
+  <h1 class="title">Dice Roller</h1>
+  <div class="grid-box">
+    <div
+      class="dice"
+      [ngClass]="{ spin1: animation1 }"
+      [ngStyle]="{ transform: dice1Transform }"
+    >
+      <div class="face one"><span class="dot"></span></div>
+      <div class="face two">
+        <span class="dot"></span><span class="dot"></span>
+      </div>
+      <div class="face three">
+        <span class="dot"></span><span class="dot"></span
+        ><span class="dot"></span>
+      </div>
+      <div class="face four">
+        <span class="dot"></span><span class="dot"></span
+        ><span class="dot"></span><span class="dot"></span>
+      </div>
+      <div class="face five">
+        <span class="dot"></span><span class="dot"></span
+        ><span class="dot"></span><span class="dot"></span
+        ><span class="dot"></span>
+      </div>
+      <div class="face six">
+        <span class="dot"></span><span class="dot"></span
+        ><span class="dot"></span><span class="dot"></span
+        ><span class="dot"></span><span class="dot"></span>
+      </div>
+    </div>
+    <div
+      class="dice"
+      [ngClass]="{ spin2: animation2 }"
+      [ngStyle]="{ transform: dice2Transform }"
+    >
+      <div class="face one"><span class="dot"></span></div>
+      <div class="face two">
+        <span class="dot"></span><span class="dot"></span>
+      </div>
+      <div class="face three">
+        <span class="dot"></span><span class="dot"></span
+        ><span class="dot"></span>
+      </div>
+      <div class="face four">
+        <span class="dot"></span><span class="dot"></span
+        ><span class="dot"></span><span class="dot"></span>
+      </div>
+      <div class="face five">
+        <span class="dot"></span><span class="dot"></span
+        ><span class="dot"></span><span class="dot"></span
+        ><span class="dot"></span>
+      </div>
+      <div class="face six">
+        <span class="dot"></span><span class="dot"></span
+        ><span class="dot"></span><span class="dot"></span
+        ><span class="dot"></span><span class="dot"></span>
+      </div>
+    </div>
+  </div>
+  <div class="controls">
+    <div class="roll-btn-wrapper">
+      <button class="roll-btn" [disabled]="isRolling" (click)="rollDice()">
+        Roll Dice
+      </button>
+    </div>
+    <div class="score-wrapper">
+      <p class="score" [ngClass]="{ 'count-up': scoreAnimation }">
+        Score: {{ dice1 + dice2 }}
+      </p>
+    </div>
+  </div>
+  <div class="items-grid">
+    <div class="item-container" *ngFor="let score of scores; let i = index">
+      <div
+        class="item"
+        [ngClass]="{
+          winner: items[i] === winningItem,
+          'try-again': items[i] === 'Try Again!'
+        }"
+      >
+        {{ items[i] }}
+      </div>
+      <div class="score-number">{{ score }}</div>
+    </div>
+  </div>
+</div>

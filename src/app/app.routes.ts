@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { MainComponent } from './pages/main/main.component';
-import { SpinWheelComponent } from './pages/spin-wheel/spin-wheel.component';
+import { GamePageComponent } from './pages/game-page/game-page.component';
 import { DiceComponent } from './component/dice/dice.component';
 import { LuckycardComponent } from './component/luckycard/luckycard.component';
 import { GoldlotteryComponent } from './component/goldlottery/goldlottery.component';
@@ -13,11 +13,11 @@ export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'main', component: MainComponent },
-  { path: 'spinWheel', component: SpinWheelComponent },
-  { path: 'luckycard', component: LuckycardComponent },
-  { path: 'dice', component: DiceComponent },
-  { path: 'goldLottery', component: GoldlotteryComponent },
-  { path: 'iphoneLottery', component: IphonelotteryComponent },
-  { path: '100lLottery1', component: Lottery1001Component },
-  { path: '100lLottery2', component: Lottery1002Component },
+  { path: 'spinWheel', component: GamePageComponent },
+  { path: 'luckycard', component: GamePageComponent },
+  { path: 'dice', component: GamePageComponent },
+  { path: 'goldLottery', component: GamePageComponent },
+  { path: 'iphoneLottery', component: GamePageComponent },
+  { path: '100lLottery1', component: GamePageComponent },
+  { path: '100lLottery2', component: GamePageComponent },
 ];

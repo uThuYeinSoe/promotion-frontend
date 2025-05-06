@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SpinWheelComponent } from './spin-wheel.component';
+import { GamePageComponent } from './game-page.component';
 
 describe('SpinWheelComponent', () => {
-  let component: SpinWheelComponent;
-  let fixture: ComponentFixture<SpinWheelComponent>;
+  let component: GamePageComponent;
+  let fixture: ComponentFixture<GamePageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SpinWheelComponent]
-    })
-    .compileComponents();
+      imports: [GamePageComponent],
+    }).compileComponents();
 
-    fixture = TestBed.createComponent(SpinWheelComponent);
+    fixture = TestBed.createComponent(GamePageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

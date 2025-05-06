@@ -95,7 +95,7 @@ export class SpinWheelGameComponent implements OnInit, AfterViewInit {
       desiredIndex = this.allGameItemsObj.findIndex(
         (game: any) => game.gameItemName === this.winingGameItemObj.gameItemName
       );
-      console.log(desiredIndex);
+      console.log(this.winingGameItemObj);
     } catch (err) {}
 
     // ✨ index က wheelItems array ထဲမှာ ရှိနေလားဆိုတာကို စစ်ဆေးပါ။
@@ -123,8 +123,7 @@ export class SpinWheelGameComponent implements OnInit, AfterViewInit {
 
     setTimeout(() => {
       this.isSpinning = false;
-      this.selectedItem = this.wheelItems[randomIndex];
-      // this.resultText = `You won ${this.getSliceName(this.selectedItem)}!`;
+      this.selectedItem = `You won ${this.winingGameItemObj.gameItemDesc} and Item name is ${this.winingGameItemObj.gameItemName}`;
     }, 5000);
   }
 
@@ -137,20 +136,5 @@ export class SpinWheelGameComponent implements OnInit, AfterViewInit {
       .map((value) => ({ value, sort: Math.random() }))
       .sort((a, b) => a.sort - b.sort)
       .map(({ value }) => value);
-  }
-
-  getSliceName(item: string): string {
-    const nameMap: { [key: string]: string } = {
-      'assets/ear.png': 'Ear',
-      'assets/gift.png': 'Gift',
-      'assets/star.png': 'Star',
-      'assets/prize.png': 'Prize',
-      'assets/earbuds.png': 'Earbuds',
-      'assets/lovepik-money.png': 'Money',
-      'assets/coin.png': 'Coin',
-      'assets/powerbank.png': 'Powerbank',
-      'assets/phone.png': 'Phone',
-    };
-    return nameMap[item] || item; // image မဟုတ်ရင် item ကိုပြပေး
   }
 }
