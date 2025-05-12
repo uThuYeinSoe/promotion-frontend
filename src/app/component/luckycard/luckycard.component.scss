@@ -1,0 +1,22 @@
+.tarot-grid {
+  display: grid;
+  grid-template-rows: repeat(5, auto);
+  grid-auto-flow: column;
+  gap: 1rem;
+  justify-content: center;
+  .imgContainer {
+    width: 5rem;
+    height: 8.5rem;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all ease-in-out 0.3s;
+    &:hover {
+      scale: 1.5;
+      border: 1px solid green;
+    }
+    img {
+      width: 5rem;
+      height: auto;
+    }
+  }
+}

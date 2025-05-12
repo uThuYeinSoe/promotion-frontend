@@ -31,6 +31,18 @@
     background-color: var(--navbar-bgcolor);
   }
   .popup-container {
+    .popup-title {
+      color: var(--main-bgcolor);
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 2.4rem;
+      text-align: center;
+    }
+    .noNeedForGameItem {
+      color: var(--main-bgcolor);
+      font-size: 1.8rem;
+      text-align: center;
+    }
     .gameResult {
       color: var(--selected-text);
       font-size: 1.6rem;

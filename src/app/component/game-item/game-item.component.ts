@@ -9,9 +9,11 @@ import { GameService } from '../../services/game.service';
 import { GameItemService } from '../../services/game-item.service';
 import { ShowTicketComponent } from '../show-ticket/show-ticket.component';
 import { TicketCreateService } from '../../services/ticket-create.service';
+import { TarotServiceService } from '../../services/tarot-service.service';
 
 import { GameItem } from '../../models/game-item.model';
 import { GamitemTicket } from '../../models/gamitem-ticket.model';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-game-item',
@@ -32,6 +34,7 @@ export class GameItemComponent implements OnInit {
   showPopup = false;
   gameTicketComponent = false;
   showCreateTicketPopUp = false;
+  noNeedForGameItem = false;
 
   gameStatusList: { label: ''; value: '' }[] = [];
   gameItemList: { label: ''; value: '' }[] = [];
@@ -122,7 +125,8 @@ export class GameItemComponent implements OnInit {
     private userData: UserDataService,
     private gameService: GameService,
     private gameItemService: GameItemService,
-    private ticektCreateService: TicketCreateService
+    private ticektCreateService: TicketCreateService,
+    private tarotService: TarotServiceService
   ) {
     this.userData.getUserObservable().subscribe((userData) => {
       this.userRole = userData.role;
@@ -282,20 +286,37 @@ export class GameItemComponent implements OnInit {
         (game) => game.gameCode === newValue
       );
 
-      const gameItemResObj = await this.gameItemService
-        .getGameItemByGame(selectedGameObj!.id)
-        .toPromise();
+      console.log(selectedGameObj);
 
-      this.gameItemRawArr = gameItemResObj.gameItemDtos;
+      if (selectedGameObj?.gameCode === '0200') {
+        const gameItemResObj = await firstValueFrom(
+          this.tarotService.getTarotCardArrFromBackend()
+        );
+        this.gameItemRawArr = gameItemResObj.tarotList;
 
-      console.log(this.gameItemRawArr);
+        console.log(this.gameItemRawArr);
 
-      this.gameItemList = this.gameItemRawArr.map((gameItem: any) => {
-        return {
-          label: gameItem.gameItemName,
-          value: gameItem.gameItemName,
-        };
-      });
+        this.gameItemList = this.gameItemRawArr.map((gameItem: any) => {
+          return {
+            label: gameItem.name,
+            value: gameItem.name_short,
+          };
+        });
+      } else {
+        const gameItemResObj = await firstValueFrom(
+          this.gameItemService.getGameItemByGame(selectedGameObj!.id)
+        );
+        this.gameItemRawArr = gameItemResObj.gameItemDtos;
+
+        console.log(this.gameItemRawArr);
+
+        this.gameItemList = this.gameItemRawArr.map((gameItem: any) => {
+          return {
+            label: gameItem.gameItemName,
+            value: gameItem.gameItemName,
+          };
+        });
+      }
     } catch (err) {
       console.log(err);
     }
@@ -315,11 +336,29 @@ export class GameItemComponent implements OnInit {
           )?.id
         : this.gameRawArr[0].id;
 
-    const gameItemResObj = await this.gameItemService
-      .getGameItemByGame(Number(this.selectedGameStatusList))
-      .toPromise();
+    console.log(this.selectedGameStatusList);
 
-    this.gameItemRawArr = gameItemResObj.gameItemDtos;
+    let gameItemResObj: any;
+    if (this.selectedGameStatusList === 3) {
+      gameItemResObj = await firstValueFrom(
+        this.tarotService.getTarotCardArrFromBackend()
+      );
+      console.log(gameItemResObj);
+      this.gameItemRawArr = gameItemResObj.tarotList.map((card: any) => ({
+        id: card.id,
+        gameCode: '0200',
+        gameName: 'Lucky Card',
+        gameItemName: card.name,
+        gameItemDesc: card.desc,
+        gameItemStatus: true,
+      }));
+    } else {
+      gameItemResObj = await this.gameItemService
+        .getGameItemByGame(Number(this.selectedGameStatusList))
+        .toPromise();
+      console.log(gameItemResObj);
+      this.gameItemRawArr = gameItemResObj.gameItemDtos;
+    }
 
     this.selectedGameItemStatus =
       this.selectedGameItemStatus !== null
@@ -336,9 +375,11 @@ export class GameItemComponent implements OnInit {
     );
     this.gameItemTicketCreatePayload.ticketAmt = Number(this.ticketAmtVal);
 
-    const resObj = await this.ticektCreateService
-      .gameItemTicketCreate(this.gameItemTicketCreatePayload)
-      .toPromise();
+    const resObj = await firstValueFrom(
+      this.ticektCreateService.gameItemTicketCreate(
+        this.gameItemTicketCreatePayload
+      )
+    );
 
     if (resObj.status) {
       this.onShowCreateTicketPopUp();
@@ -354,5 +395,14 @@ export class GameItemComponent implements OnInit {
     this.selectedGameStatusList = this.selectedGameItemStatus = null;
     this.ticketAmtVal = '';
     this.showCreateTicketPopUp = false;
+  }
+
+  async onGameStatusChanged(value: string) {
+    console.log(value);
+    if (value === '0200') {
+      this.noNeedForGameItem = true;
+    } else {
+      this.noNeedForGameItem = false;
+    }
   }
 }

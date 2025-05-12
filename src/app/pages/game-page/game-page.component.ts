@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { SpinWheelGameComponent } from '../../component/spin-wheel-game/spin-wheel-game.component';
 import { DiceComponent } from '../../component/dice/dice.component';
+import { LuckycardComponent } from '../../component/luckycard/luckycard.component';
 
 @Component({
   selector: 'app-game-page',
@@ -17,6 +18,7 @@ import { DiceComponent } from '../../component/dice/dice.component';
     RightSideComponent,
     SpinWheelGameComponent,
     DiceComponent,
+    LuckycardComponent,
   ],
   templateUrl: './game-page.component.html',
   styleUrl: './game-page.component.scss',

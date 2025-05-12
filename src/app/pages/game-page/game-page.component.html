@@ -3,8 +3,13 @@
   <app-left-side class="main-left"></app-left-side>
   <app-spin-wheel-game
     class="game-space"
-    *ngIf="pathName === 'spinWheel'"
+    *ngIf="pathName === 'spin-wheel'"
   ></app-spin-wheel-game>
   <app-dice *ngIf="pathName === 'dice'" class="game-space"></app-dice>
+  <app-luckycard
+    *ngIf="pathName === 'lucky-card'"
+    class="game-space"
+  ></app-luckycard>
+
   <app-right-side class="main-right"></app-right-side>
 </div>

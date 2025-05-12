@@ -1,1 +1,15 @@
-<p>luckycard works!</p>
+<div class="card-container">
+  <div class="card" [class.flipped]="flipped">
+    <div class="card-inner">
+      <div class="card-face card-front tarot-grid">
+        <div
+          class="imgContainer"
+          *ngFor="let element of tarotBackArr"
+          (click)="drawCard(element)"
+        >
+          <img [src]="tarotBack" alt="Tarot Card" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

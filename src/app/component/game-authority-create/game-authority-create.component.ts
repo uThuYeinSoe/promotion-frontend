@@ -123,6 +123,8 @@ export class GameAuthorityCreateComponent implements OnInit {
             randomId: '',
             gameUpdateRequestList: [],
           };
+
+          this.data = [];
         }
       } else {
         return;

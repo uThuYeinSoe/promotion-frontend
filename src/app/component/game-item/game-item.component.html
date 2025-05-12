@@ -31,27 +31,44 @@
   </div>
 
   <app-custom-popup *ngIf="showPopup" class="popup-container">
-    <div popup-title class="popup-title">Confirm Action</div>
+    <div popup-title class="popup-title">Confirm Box</div>
     <app-custom-select
       [options]="gameStatusList"
       [(value)]="selectedGameStatusList"
       placeholder="Select a Game"
+      (valueChange)="onGameStatusChanged($event)"
     ></app-custom-select>
     <app-custom-input
+      *ngIf="!noNeedForGameItem"
       [type]="gameItemType"
       [(value)]="gameItemVal"
       [placeHolder]="gameItemValName"
     ></app-custom-input>
+    <p class="noNeedForGameItem" *ngIf="noNeedForGameItem">
+      No Need For This Game Type
+    </p>
+
     <app-custom-input
+      *ngIf="!noNeedForGameItem"
       [type]="gameItemDescType"
       [(value)]="gameItemDescVal"
       [placeHolder]="gameItemDescName"
     ></app-custom-input>
     <div popup-footer>
-      <button (click)="onGameItemAdd()" class="promotion-button">
+      <button
+        (click)="onGameItemAdd()"
+        class="promotion-button"
+        *ngIf="!noNeedForGameItem"
+      >
         Confirm
       </button>
-      <button (click)="onCancel()" class="promotion-button">Cancel</button>
+      <button
+        (click)="onCancel()"
+        class="promotion-button"
+        *ngIf="!noNeedForGameItem"
+      >
+        Cancel
+      </button>
     </div>
   </app-custom-popup>
 
