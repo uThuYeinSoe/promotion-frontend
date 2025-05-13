@@ -1,1 +1,53 @@
-<p>reward works!</p>
+<div class="rweardInnerContainer" *ngIf="userRole == 'AGENT'">
+  <div class="navbar">
+    <button class="promotion-button" (click)="onOpenCreateRewardPopUp()">
+      Create Reward
+    </button>
+  </div>
+
+  <div class="table">
+    <app-table
+      [columns]="columns"
+      [data]="data"
+      [dataKeys]="dataKeys"
+      (actionClicked)="changeRewardStatus($event)"
+      (action2Clickd)="onShowAllTicketByReward($event)"
+    ></app-table>
+  </div>
+
+  <app-custom-popup *ngIf="showCreateRewardPopup" class="popup-container">
+    <div popup-title class="popup-title">Confirm Box</div>
+    <app-custom-select
+      [options]="gameStatusList"
+      [(value)]="selectedGame"
+      placeholder="Select a Game"
+      (valueChange)="onGameStatusChanged($event)"
+    ></app-custom-select>
+
+    <app-custom-select
+      [options]="gameItemStatusList"
+      [(value)]="selectedGameItemId"
+      placeholder="Select a Game Item"
+      (valueChange)="onGameItemStatusChanged($event)"
+    ></app-custom-select>
+    <app-custom-input
+      [type]="rewardType"
+      [(value)]="rewardValue"
+      [placeHolder]="rewardHolder"
+    ></app-custom-input>
+    <!-- <p class="noNeedForGameItem" *ngIf="noNeedForGameItem">
+      No Need For This Game Type
+    </p> -->
+
+    <!-- <app-custom-input
+      *ngIf="!noNeedForGameItem"
+      [type]="gameItemDescType"
+      [(value)]="gameItemDescVal"
+      [placeHolder]="gameItemDescName"
+    ></app-custom-input> -->
+    <div popup-footer>
+      <button (click)="onRewardSave()" class="promotion-button">Save</button>
+      <button (click)="onCancel()" class="promotion-button">Cancel</button>
+    </div>
+  </app-custom-popup>
+</div>
