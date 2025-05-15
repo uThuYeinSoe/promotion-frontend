@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgClass, NgStyle, CommonModule } from '@angular/common';
 
-import { SpinserviceService } from '../../services/spinservice.service';
+import { DiceService } from '../../services/dice.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-dice',
@@ -28,7 +29,7 @@ export class DiceComponent implements OnInit {
   allGameItemsObj: any;
 
   items: (number | string | null)[] = [];
-  scores: number[] = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 0];
+  gameItemArr: { gameItemName: ''; rewardValue: '' }[] = [];
 
   private faceTransforms: { [key: number]: string } = {
     1: 'rotateY(0deg)',
@@ -39,12 +40,21 @@ export class DiceComponent implements OnInit {
     6: 'rotateX(90deg)',
   };
 
-  constructor(private spinServcie: SpinserviceService) {}
+  constructor(private diceService: DiceService) {}
 
   async ngOnInit() {
     try {
-      const resObj = await this.spinServcie.getGameItemByGameId(4).toPromise();
-      this.allGameItemsObj = resObj.gameItemDtos;
+      const resObj = await firstValueFrom(this.diceService.getDiceGameItem());
+      this.allGameItemsObj = resObj.diceGameItemObjList;
+
+      console.log(this.allGameItemsObj);
+      this.gameItemArr = this.allGameItemsObj.map((gameItem: any) => {
+        return {
+          gameItemName: gameItem.gameItemName,
+          rewardValue: gameItem.rewardValue,
+        };
+      });
+
       this.items = this.allGameItemsObj.map((game: any) => game.gameItemDesc);
     } catch (err) {}
   }
@@ -58,7 +68,8 @@ export class DiceComponent implements OnInit {
     this.dice2 = 0;
 
     try {
-      const resObj = await this.spinServcie.getDiceWinObj().toPromise();
+      const resObj = await firstValueFrom(this.diceService.getDiceWinObj());
+
       this.dice1Val = resObj.diceWinObj.diceNumberObjList[0];
       this.dice2Val = resObj.diceWinObj.diceNumberObjList[1];
       console.log(resObj);

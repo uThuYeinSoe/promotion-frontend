@@ -71,7 +71,10 @@
     </div>
   </div>
   <div class="items-grid">
-    <div class="item-container" *ngFor="let score of scores; let i = index">
+    <div
+      class="item-container"
+      *ngFor="let gameItem of gameItemArr; let i = index"
+    >
       <div
         class="item"
         [ngClass]="{
@@ -79,9 +82,9 @@
           'try-again': items[i] === 'Try Again!'
         }"
       >
-        {{ items[i] }}
+        {{ gameItem.rewardValue }}
       </div>
-      <div class="score-number">{{ score }}</div>
+      <div class="score-number">{{ gameItem.gameItemName }}</div>
     </div>
   </div>
 </div>
