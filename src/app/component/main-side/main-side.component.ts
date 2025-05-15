@@ -11,6 +11,7 @@ import { LogoutComponent } from '../logout/logout.component';
 import { AgentComponent } from '../agent/agent.component';
 import { GameAuthorityComponent } from '../game-authority/game-authority.component';
 import { GameItemComponent } from '../game-item/game-item.component';
+import { GameTicketComponent } from '../game-ticket/game-ticket.component';
 
 @Component({
   selector: 'app-main-side',
@@ -25,6 +26,7 @@ import { GameItemComponent } from '../game-item/game-item.component';
     AgentComponent,
     GameAuthorityComponent,
     GameItemComponent,
+    GameTicketComponent,
   ],
   templateUrl: './main-side.component.html',
   styleUrl: './main-side.component.scss',

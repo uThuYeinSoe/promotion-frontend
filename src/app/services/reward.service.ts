@@ -18,4 +18,12 @@ export class RewardService {
   getRewardAll(): Observable<any> {
     return this.apiCallService.get(this.saveRewardRoute);
   }
+
+  getRewardByGameItem(gameItemId: number): Observable<any> {
+    return this.apiCallService.get(`${this.saveRewardRoute}/${gameItemId}`);
+  }
+
+  updateReward(data: any): Observable<any> {
+    return this.apiCallService.put(this.saveRewardRoute, data);
+  }
 }

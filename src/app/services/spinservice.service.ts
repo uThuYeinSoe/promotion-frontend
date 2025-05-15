@@ -17,6 +17,11 @@ export class SpinserviceService {
     return this.apiCallService.get(innerRoute);
   }
 
+  getSpinWheelGameItem(): Observable<any> {
+    let innerRoute = 'promotion/pinwheel/gameItem';
+    return this.apiCallService.get(innerRoute);
+  }
+
   getWinObj(): Observable<any> {
     return this.apiCallService.get(this.getWinObjUrl);
   }

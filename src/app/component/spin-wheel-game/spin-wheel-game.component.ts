@@ -8,6 +8,7 @@ import {
 import { CommonModule } from '@angular/common';
 
 import { SpinserviceService } from '../../services/spinservice.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-spin-wheel-game',
@@ -60,8 +61,10 @@ export class SpinWheelGameComponent implements OnInit, AfterViewInit {
 
   async ngOnInit() {
     try {
-      const resObj = await this.spinServcie.getGameItemByGameId(1).toPromise();
-      this.allGameItemsObj = resObj.gameItemDtos;
+      const resObj = await firstValueFrom(
+        this.spinServcie.getSpinWheelGameItem()
+      );
+      this.allGameItemsObj = resObj.spinWheelGameItemObjList;
       this.wheelItems = this.allGameItemsObj.map(
         (game: any) => game.gameItemName
       );
@@ -123,7 +126,7 @@ export class SpinWheelGameComponent implements OnInit, AfterViewInit {
 
     setTimeout(() => {
       this.isSpinning = false;
-      this.selectedItem = `You won ${this.winingGameItemObj.gameItemDesc} and Item name is ${this.winingGameItemObj.gameItemName}`;
+      this.selectedItem = `You won ${this.winingGameItemObj.gameItemName} and Ticket Number is ${this.winingGameItemObj.ticketName}`;
     }, 5000);
   }
 

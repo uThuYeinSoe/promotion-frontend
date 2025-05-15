@@ -57,7 +57,11 @@ export class LeftSideComponent implements OnInit {
       label: 'Reward',
       value: '06000',
     },
-
+    {
+      icon: 'fa-solid fa-receipt',
+      label: 'Game Ticket',
+      value: '10000',
+    },
     {
       icon: 'fa-solid fa-right-from-bracket',
       label: 'Log Out',

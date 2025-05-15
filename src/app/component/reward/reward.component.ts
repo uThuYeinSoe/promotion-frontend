@@ -13,7 +13,10 @@ import { UserDataService } from '../../services/user-data.service';
 import { GameService } from '../../services/game.service';
 import { GameItemService } from '../../services/game-item.service';
 import { RewardService } from '../../services/reward.service';
+import { GameTicketService } from '../../services/game-ticket.service';
 import { firstValueFrom } from 'rxjs';
+
+import { TicketCreate } from '../../models/ticket-create.model';
 
 @Component({
   selector: 'app-reward',
@@ -32,10 +35,13 @@ export class RewardComponent implements OnInit {
   userRole: string = '';
 
   showCreateRewardPopup = false;
+  showEditRewardPopup = false;
+  showCreateTicketPopup = false;
 
   rawGameList: any[] = [];
   gameStatusList: { label: ''; value: any }[] = [];
   selectedGame: any = null;
+  selectedGameCode: any = null;
 
   rawGameItemList: any[] = [];
   gameItemStatusList: { label: ''; value: '' }[] = [];
@@ -45,6 +51,10 @@ export class RewardComponent implements OnInit {
   rewardHolder = 'Please Enter Reward Value';
   rewardValue = '';
 
+  ticketAmtType = 'text';
+  ticketAmt = '';
+  ticketAmtPlaceHolder = 'Please Enter Amount Fot Ticket';
+
   columns = [
     'No',
     'Game Code',
@@ -52,8 +62,8 @@ export class RewardComponent implements OnInit {
     'Game Item Name',
     'Reward',
     'Reward Status',
-    'Change Status',
-    'Show Ticket',
+    'Edit',
+    'Create Ticket',
   ];
 
   dataKeys: string[] = [
@@ -69,10 +79,34 @@ export class RewardComponent implements OnInit {
 
   data = [];
 
+  booleanStatus: { label: string; value: boolean }[] = [
+    {
+      label: 'True',
+      value: true,
+    },
+    {
+      label: 'False',
+      value: false,
+    },
+  ];
+
+  // Update Stattus
+  selectedGameName = '';
+  selectedGameItemName = '';
+  rewardStatus: boolean = true;
+  updateSelectGame: any = null;
+  updateSelectGameItem: any = null;
+
+  gameType = 'text';
+  gameItemType = 'text';
+  gameName = '';
+  gameItemName = '';
+
   constructor(
     private userData: UserDataService,
     private gameService: GameService,
     private gameItemService: GameItemService,
+    private gameTicketService: GameTicketService,
     private rewardService: RewardService
   ) {
     this.userData.getUserObservable().subscribe((userData) => {
@@ -139,12 +173,62 @@ export class RewardComponent implements OnInit {
     this.showCreateRewardPopup = true;
   }
 
-  changeRewardStatus(value: any) {
-    console.log(value);
+  async changeReward(value: any) {
+    try {
+      this.updateSelectGame = this.rawGameList.filter(
+        (game) => game.gameCode === value.gameCode
+      )[0];
+      this.selectedGameName = this.updateSelectGame.gameName;
+
+      console.log(this.rawGameList);
+
+      await this.findingGameItemByGameId(this.updateSelectGame.id);
+
+      console.log(this.rawGameItemList);
+
+      this.updateSelectGameItem = this.rawGameItemList.filter(
+        (gameItem) => gameItem.gameItemName === value.gameItemName
+      )[0];
+
+      this.selectedGameItemName = this.updateSelectGameItem.gameItemName;
+
+      this.rewardValue = value.rewardValue;
+      this.rewardStatus = value.rewardStatus;
+
+      this.showEditRewardPopup = true;
+      console.log(value);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
-  onShowAllTicketByReward(value: any) {
-    console.log(value);
+  async onCreateTicketForGame(value: any) {
+    this.gameName = value.gameName;
+    this.gameItemName = value.gameItemName;
+    this.rewardValue = value.rewardValue;
+    this.selectedGameCode = value.gameCode;
+    this.showCreateTicketPopup = true;
+  }
+
+  craetTicketPayload: TicketCreate = {
+    gameCode: '',
+    gameItemName: '',
+    ticketAmt: '',
+  };
+
+  async onCreateTicket() {
+    this.craetTicketPayload.gameCode = this.selectedGameCode;
+    this.craetTicketPayload.gameItemName = this.gameItemName;
+    this.craetTicketPayload.ticketAmt = this.ticketAmt;
+
+    const resObj = await firstValueFrom(
+      this.gameTicketService.createTicket(this.craetTicketPayload)
+    );
+
+    console.log(resObj);
+    if (resObj.status) {
+      await this.onCancel();
+    }
   }
 
   async onGameStatusChanged(gameCode: any) {
@@ -159,6 +243,10 @@ export class RewardComponent implements OnInit {
 
   onGameItemStatusChanged(value: any) {
     this.selectedGameItemId = value;
+  }
+
+  onRewardItemStatusChanged(value: any) {
+    this.rewardStatus = value;
   }
 
   saveRewardPayload: CreateReward = {
@@ -183,6 +271,8 @@ export class RewardComponent implements OnInit {
         this.rewardService.saveReward(this.saveRewardPayload)
       );
       if (resObj.status) {
+        const resObj = await firstValueFrom(this.rewardService.getRewardAll());
+        this.data = resObj.rewardResobjList;
         await this.onCancel();
       }
       console.log(resObj);
@@ -190,11 +280,62 @@ export class RewardComponent implements OnInit {
     console.log(this.saveRewardPayload);
   }
 
+  rewardUpdatePayload = {
+    gameCode: '',
+    gameItemId: 0,
+    status: true,
+    rewardValue: '',
+  };
+
+  async onRewardUpdate() {
+    this.rewardUpdatePayload.gameCode = this.updateSelectGame.gameCode;
+    this.rewardUpdatePayload.gameItemId = this.updateSelectGameItem.id;
+    this.rewardUpdatePayload.status = this.rewardStatus;
+    this.rewardUpdatePayload.rewardValue = this.rewardValue;
+    console.log(this.rewardUpdatePayload);
+
+    try {
+      const resObj = await firstValueFrom(
+        this.rewardService.updateReward(this.rewardUpdatePayload)
+      );
+      console.log(resObj);
+      if (resObj.status) {
+        const resObj = await firstValueFrom(this.rewardService.getRewardAll());
+        this.data = resObj.rewardResobjList;
+        this.onCancel();
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   async onCancel() {
     this.showCreateRewardPopup = false;
+    this.showCreateTicketPopup = false;
+    this.showCreateTicketPopup = false;
+    this.showEditRewardPopup = false;
     this.selectedGame = null;
     this.selectedGameItemId = null;
     this.rewardValue = '';
+    this.ticketAmt = '';
+
+    this.selectedGameName = '';
+    this.selectedGameItemName = '';
+    this.rewardStatus = true;
+
+    this.saveRewardPayload = {
+      gameCode: '',
+      gameItemId: 0,
+      rewardValue: '',
+    };
+
+    this.rewardUpdatePayload = {
+      gameCode: '',
+      gameItemId: 0,
+      status: true,
+      rewardValue: '',
+    };
+
     await this.getGameTypeAll();
     await this.findingGameItemByGameId(this.rawGameList[0].id);
   }

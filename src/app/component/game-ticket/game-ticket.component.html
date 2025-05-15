@@ -1,0 +1,79 @@
+<div class="gameTicketInnerContainer" *ngIf="userRole == 'AGENT'">
+  <div class="navbar">
+    <div class="searchContainer">
+      <app-custom-select
+        [options]="gameStatusList"
+        [(value)]="selectedGameCode"
+        placeholder="Select a Game"
+        (valueChange)="onGameStatusChanged($event)"
+      ></app-custom-select>
+
+      <app-custom-select
+        [options]="gameItemStatusList"
+        [(value)]="selectedGameItemId"
+        placeholder="Select a Game Item"
+        (valueChange)="onGameItemStatusChanged($event)"
+      ></app-custom-select>
+
+      <app-custom-input
+        [type]="rewardType"
+        [(value)]="rewardValue"
+        [disabled]="true"
+      ></app-custom-input>
+
+      <app-custom-select
+        [options]="booleanStatus"
+        [(value)]="rewardStatus"
+        placeholder="Select a Game Item"
+        (valueChange)="onFindTicketByParameter()"
+      ></app-custom-select>
+
+      <button class="search-button" (click)="onOpenCreateGameTicketPopUp()">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="table">
+    <app-table
+      [columns]="columns"
+      [data]="data"
+      [dataKeys]="dataKeys"
+      (actionClicked)="changeReward($event)"
+      (action2Clickd)="onShowAllTicketByReward($event)"
+    ></app-table>
+  </div>
+
+  <app-custom-popup *ngIf="showCreateGameTicketPopup" class="popup-container">
+    <div popup-title class="popup-title">Confirm Box</div>
+    <app-custom-select
+      [options]="gameStatusList"
+      [(value)]="selectedGameCodeForCreate"
+      placeholder="Select a Game"
+      (valueChange)="onGameStatusChangedForCreate($event)"
+    ></app-custom-select>
+
+    <app-custom-select
+      [options]="gameItemStatusList"
+      [(value)]="selectedGameItemIdForCreate"
+      placeholder="Select a Game Item"
+      (valueChange)="onGameItemStatusChangedForCreate($event)"
+    ></app-custom-select>
+
+    <app-custom-input
+      [type]="rewardType"
+      [(value)]="rewardValue"
+      [disabled]="true"
+    ></app-custom-input>
+
+    <app-custom-input
+      [type]="ticketAmtType"
+      [(value)]="ticketAmt"
+      [placeHolder]="ticketAmtPlaceHolder"
+    ></app-custom-input>
+    <div popup-footer>
+      <button (click)="onTicketCreate()" class="promotion-button">Save</button>
+      <button (click)="onCancel()" class="promotion-button">Cancel</button>
+    </div>
+  </app-custom-popup>
+</div>

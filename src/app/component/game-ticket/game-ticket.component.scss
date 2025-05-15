@@ -1,0 +1,115 @@
+.gameTicketInnerContainer {
+  width: 100%;
+  .navbar {
+    width: 100%;
+    height: 7rem;
+    background-color: var(--navbar-bgcolor);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1.6rem;
+    padding-right: 1.6rem;
+    margin-bottom: 1.6rem;
+    .searchContainer {
+      display: flex;
+      gap: 1rem;
+      .search-button {
+        font-size: 1.6rem;
+        font-weight: 600;
+        padding: 1.6rem 3.2rem;
+        border-radius: 1rem;
+        cursor: pointer;
+        transition: all linear 0.2s;
+        border: none;
+        outline: none;
+        &:hover {
+          background-color: var(--selected-color);
+          border: none;
+          outline: none;
+        }
+      }
+    }
+    .promotion-button {
+      font-size: 1.6rem;
+      font-weight: 600;
+      padding: 0.8rem 1.2rem;
+      border-radius: 1rem;
+      cursor: pointer;
+      transition: all linear 0.2s;
+      border: none;
+      outline: none;
+      &:hover {
+        background-color: var(--selected-color);
+        border: none;
+        outline: none;
+      }
+    }
+  }
+  .table {
+    width: 98%;
+    background-color: var(--navbar-bgcolor);
+  }
+  .popup-container {
+    .popup-title {
+      color: var(--main-bgcolor);
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 2.4rem;
+      text-align: center;
+    }
+    .noNeedForGameItem {
+      color: var(--main-bgcolor);
+      font-size: 1.8rem;
+      text-align: center;
+    }
+    .gameResult {
+      color: var(--selected-text);
+      font-size: 1.6rem;
+      font-weight: 600;
+    }
+    .promotion-button {
+      background-color: var(--selected-bgcolor);
+      margin-top: 2rem;
+      font-size: 1.6rem;
+      font-weight: 600;
+      padding: 1.6rem 3.2rem;
+      border-radius: 1rem;
+      cursor: pointer;
+      transition: all linear 0.2s;
+      border: none;
+      outline: none;
+      color: var(--main-text-color);
+      &:hover {
+        background-color: var(--selected-color);
+        border: none;
+        outline: none;
+        color: var(--navbar-bgcolor);
+      }
+      &:last-child {
+        margin-left: 1rem;
+      }
+    }
+  }
+  .showCreateTicketPopUpContainer {
+    .inputContainer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      flex: 1;
+      app-custom-select {
+        flex: 1;
+        margin-right: 10px;
+      }
+      .promotion-button {
+        margin-top: 0;
+        width: 20%;
+      }
+      p {
+        font-size: 2.4rem;
+        color: var(--navbar-bgcolor);
+        font-weight: 600;
+      }
+    }
+  }
+}
