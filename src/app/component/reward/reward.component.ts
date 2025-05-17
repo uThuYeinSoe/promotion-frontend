@@ -17,6 +17,7 @@ import { GameTicketService } from '../../services/game-ticket.service';
 import { firstValueFrom } from 'rxjs';
 
 import { TicketCreate } from '../../models/ticket-create.model';
+import { LuckyCardReward } from '../../models/lucky-card-reward.model';
 
 @Component({
   selector: 'app-reward',
@@ -77,7 +78,7 @@ export class RewardComponent implements OnInit {
     'action2',
   ];
 
-  data = [];
+  data: any[] = [];
 
   booleanStatus: { label: string; value: boolean }[] = [
     {
@@ -117,9 +118,17 @@ export class RewardComponent implements OnInit {
   async ngOnInit() {
     try {
       const resObj = await firstValueFrom(this.rewardService.getRewardAll());
-      this.data = resObj.rewardResobjList;
+
+      const luckyCardResObj = await firstValueFrom(
+        this.rewardService.getLuckyCardRewardAll()
+      );
 
       console.log(this.data);
+
+      this.data = [
+        ...resObj.rewardResobjList,
+        ...luckyCardResObj.luckyCardRewardObjs,
+      ];
 
       await this.getGameTypeAll();
 
@@ -147,11 +156,12 @@ export class RewardComponent implements OnInit {
     } catch (err) {}
   }
 
-  async findingGameItemByGameId(gameItemId: number) {
+  async findingGameItemByGameId(gameId: number) {
+    console.log(gameId);
     try {
-      if (gameItemId === 1 || gameItemId === 3) {
+      if (gameId === 1 || gameId === 3) {
         const resObj = await firstValueFrom(
-          this.gameItemService.getGameItemByGame(gameItemId)
+          this.gameItemService.getGameItemByGame(gameId)
         );
         this.rawGameItemList = this.gameItemStatusList = [];
 
@@ -159,6 +169,21 @@ export class RewardComponent implements OnInit {
         this.gameItemStatusList = this.rawGameItemList.map((gameItem: any) => {
           return {
             label: gameItem.gameItemName,
+            value: gameItem.id,
+          };
+        });
+        this.selectedGameItemId = this.rawGameItemList[0].id;
+      } else if (gameId === 2) {
+        const resObj = await firstValueFrom(
+          this.gameItemService.getLuckyCardGameItem()
+        );
+        console.log(resObj);
+        this.rawGameItemList = this.gameItemStatusList = [];
+
+        this.rawGameItemList = resObj.tarotObjList;
+        this.gameItemStatusList = this.rawGameItemList.map((gameItem: any) => {
+          return {
+            label: gameItem.name,
             value: gameItem.id,
           };
         });
@@ -203,6 +228,7 @@ export class RewardComponent implements OnInit {
   }
 
   async onCreateTicketForGame(value: any) {
+    console.log(value);
     this.gameName = value.gameName;
     this.gameItemName = value.gameItemName;
     this.rewardValue = value.rewardValue;
@@ -255,6 +281,11 @@ export class RewardComponent implements OnInit {
     rewardValue: '',
   };
 
+  saveRewardLuckyCardPayload: LuckyCardReward = {
+    luckyCardId: 0,
+    value: '',
+  };
+
   async onRewardSave() {
     console.log(this.selectedGameItemId);
     this.saveRewardPayload.gameCode = this.rawGameList.filter(
@@ -266,16 +297,55 @@ export class RewardComponent implements OnInit {
       console.log('Please Enter Reward Value');
       return;
     }
+    console.log(this.saveRewardPayload);
     try {
-      const resObj = await firstValueFrom(
-        this.rewardService.saveReward(this.saveRewardPayload)
-      );
-      if (resObj.status) {
-        const resObj = await firstValueFrom(this.rewardService.getRewardAll());
-        this.data = resObj.rewardResobjList;
-        await this.onCancel();
+      if (
+        this.saveRewardPayload.gameCode === '0100' ||
+        this.saveRewardPayload.gameCode === '0300'
+      ) {
+        const resObj = await firstValueFrom(
+          this.rewardService.saveReward(this.saveRewardPayload)
+        );
+        if (resObj.status) {
+          const resObj = await firstValueFrom(
+            this.rewardService.getRewardAll()
+          );
+          const luckyCardResObj = await firstValueFrom(
+            this.rewardService.getLuckyCardRewardAll()
+          );
+          this.data = [
+            ...resObj.rewardResobjList,
+            ...luckyCardResObj.luckyCardRewardObjs,
+          ];
+          await this.onCancel();
+        }
+      } else if (this.saveRewardPayload.gameCode === '0200') {
+        this.saveRewardLuckyCardPayload.luckyCardId = Number(
+          this.saveRewardPayload.gameItemId
+        );
+        this.saveRewardLuckyCardPayload.value =
+          this.saveRewardPayload.rewardValue;
+
+        const resObj = await firstValueFrom(
+          this.rewardService.saveLuckyCardReward(
+            this.saveRewardLuckyCardPayload
+          )
+        );
+        console.log(resObj);
+        if (resObj.status) {
+          const resObj = await firstValueFrom(
+            this.rewardService.getRewardAll()
+          );
+          const luckyCardResObj = await firstValueFrom(
+            this.rewardService.getLuckyCardRewardAll()
+          );
+          this.data = [
+            ...resObj.rewardResobjList,
+            ...luckyCardResObj.luckyCardRewardObjs,
+          ];
+          await this.onCancel();
+        }
       }
-      console.log(resObj);
     } catch (err) {}
     console.log(this.saveRewardPayload);
   }

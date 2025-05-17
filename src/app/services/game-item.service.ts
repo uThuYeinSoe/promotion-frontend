@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ApiCallService } from './api-call.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +24,11 @@ export class GameItemService {
 
   getGameItemByGame(gameId: number): Observable<any> {
     let route = `${this.gameItemGetRoute}/${gameId}`;
+    return this.apiCallService.get(route);
+  }
+
+  getLuckyCardGameItem(): Observable<any> {
+    const route = 'promotion/trc/tarot';
     return this.apiCallService.get(route);
   }
 }
