@@ -1,15 +1,30 @@
-<div class="card-container">
-  <div class="card" [class.flipped]="flipped">
-    <div class="card-inner">
-      <div class="card-face card-front tarot-grid">
-        <div
-          class="imgContainer"
-          *ngFor="let element of tarotBackArr"
-          (click)="drawCard(element)"
-        >
-          <img [src]="tarotBack" alt="Tarot Card" />
+<div class="luckyCardContainer">
+  <div class="tarot-game">
+    <h2 [@colorChange]="titleState" [@bounceUpDown]="titleState">
+      Ar-7 Tarot Card Promotion
+    </h2>
+    <div class="card-grid">
+      <div
+        *ngFor="let card of cards"
+        class="card"
+        [ngClass]="{ flipped: card.flipped }"
+        (click)="flipCard(card)"
+      >
+        <div class="card-inner">
+          <div class="card-front">
+            <img [src]="cardBack" alt="Card Back" />
+          </div>
+          <div class="card-back">
+            <img [src]="cardFront" alt="Card Image" />
+          </div>
         </div>
       </div>
+    </div>
+    <div *ngIf="selectedCard && selectedCard.flipped" class="message-container">
+      <p class="prize-message" [@colorFade]="messageState">
+        Congratulations! You won {{ rewaardValue }}!
+      </p>
+      <p class="win-message" [@colorFade]="messageState">{{ rewaardValue }}</p>
     </div>
   </div>
 </div>

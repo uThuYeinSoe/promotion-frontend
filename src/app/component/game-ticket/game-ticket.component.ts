@@ -83,7 +83,7 @@ export class GameTicketComponent implements OnInit {
     'action',
   ];
 
-  data = [];
+  data: any[] = [];
 
   //Create Ticket
 
@@ -112,7 +112,13 @@ export class GameTicketComponent implements OnInit {
       const resObj = await firstValueFrom(
         this.gameTicketService.getGameTicketByAgent()
       );
-      this.data = resObj.gameTicketResObjList;
+      const resLuckyCardTicketObj = await firstValueFrom(
+        this.gameTicketService.getLuckyCardTicketByAgent()
+      );
+      this.data = [
+        ...resObj.gameTicketResObjList,
+        ...resLuckyCardTicketObj.luckyCardTicketResObjs,
+      ];
     } catch (err) {}
   }
 

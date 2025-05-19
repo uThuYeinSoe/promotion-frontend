@@ -246,14 +246,25 @@ export class RewardComponent implements OnInit {
     this.craetTicketPayload.gameCode = this.selectedGameCode;
     this.craetTicketPayload.gameItemName = this.gameItemName;
     this.craetTicketPayload.ticketAmt = this.ticketAmt;
-
-    const resObj = await firstValueFrom(
-      this.gameTicketService.createTicket(this.craetTicketPayload)
-    );
-
-    console.log(resObj);
-    if (resObj.status) {
-      await this.onCancel();
+    console.log(this.craetTicketPayload);
+    if (
+      this.craetTicketPayload.gameCode === '0100' ||
+      this.craetTicketPayload.gameCode === '0300'
+    ) {
+      const resObj = await firstValueFrom(
+        this.gameTicketService.createTicket(this.craetTicketPayload)
+      );
+      if (resObj.status) {
+        await this.onCancel();
+      }
+    } else if ((this.craetTicketPayload.gameCode = '0200')) {
+      const resObj = await firstValueFrom(
+        this.gameTicketService.createLucyCardTicket(this.craetTicketPayload)
+      );
+      if (resObj.status) {
+        console.log('Lucky Card Ticket Create Successfully');
+        await this.onCancel();
+      }
     }
   }
 

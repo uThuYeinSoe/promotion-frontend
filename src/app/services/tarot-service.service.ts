@@ -20,4 +20,9 @@ export class TarotServiceService {
     const route = 'promotion/lcc/lucky-card';
     return this.apiCallService.get(route);
   }
+
+  getTarotCardWinObj(): Observable<any> {
+    const route = 'promotion/lrc/win-value';
+    return this.apiCallService.get(route);
+  }
 }
