@@ -13,4 +13,9 @@
   <app-logout *ngIf="navCode === '07000'"></app-logout>
   <app-game-item *ngIf="navCode === '09000'"></app-game-item>
   <app-game-ticket *ngIf="navCode === '10000'"></app-game-ticket>
+  <app-lottery-luckynumber
+    *ngIf="navCode === '11000'"
+  ></app-lottery-luckynumber>
+  <app-lottery-control *ngIf="navCode === '12000'"></app-lottery-control>
+  <app-lottery-reward *ngIf="navCode === '13000'"></app-lottery-reward>
 </div>

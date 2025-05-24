@@ -1,1 +1,63 @@
-<p>iphonelottery works!</p>
+<div class="container">
+  <div class="main-content" *ngIf="!goldLotteryAuthorize">
+    <h1 class="main-title">Notic</h1>
+    <p class="instruction-text">
+      Gold Lottery ကို မိတ်ဆွေရဲ့ Agent မှ ပိတ်ထားခြင်းဖြစ်တဲ့အတွက်
+      လက်ရှိကစားလို့ မရနိုင်ပါ။
+    </p>
+  </div>
+  <div class="main-content" *ngIf="goldLotteryAuthorize">
+    <h1 class="main-title">Ar-7 3D Lottery Number Picker</h1>
+    <p class="instruction-text">
+      "!!! ဒီ ဂိမ်းသည် ထိုင်းချဲနှင့် အတူတူဖြစ်ပြီး
+      ထိုင်းချဲရဲ့ပေါက်မဲနံပါတ်သည်သာ အတည်ဖြစ်ပါသည်။ ပေါက်မဲတစ်ကွက်တည်းကိုသာ
+      ဖောက်ပေးခြင်းဖြစ်ပါသည်"
+    </p>
+    <div class="number-picker animate-box">
+      <div class="number-input-wrapper">
+        <div class="number-input">{{ digit1 }}</div>
+        <div class="arrow-btn-container">
+          <button (click)="incrementDigit(1)" class="arrow-btn arrow-up">
+            ▲
+          </button>
+          <button (click)="decrementDigit(1)" class="arrow-btn arrow-down">
+            ▼
+          </button>
+        </div>
+      </div>
+      <div class="number-input-wrapper">
+        <div class="number-input">{{ digit2 }}</div>
+        <div class="arrow-btn-container">
+          <button (click)="incrementDigit(2)" class="arrow-btn arrow-up">
+            ▲
+          </button>
+          <button (click)="decrementDigit(2)" class="arrow-btn arrow-down">
+            ▼
+          </button>
+        </div>
+      </div>
+      <div class="number-input-wrapper">
+        <div class="number-input">{{ digit3 }}</div>
+        <div class="arrow-btn-container">
+          <button (click)="incrementDigit(3)" class="arrow-btn arrow-up">
+            ▲
+          </button>
+          <button (click)="decrementDigit(3)" class="arrow-btn arrow-down">
+            ▼
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button (click)="addNumber()" class="btn btn-confirm">CONFIRM</button>
+      <button (click)="clearNumbers()" class="btn btn-clear">CLEAR ALL</button>
+    </div>
+
+    <div class="current-number-box animate-box">
+      <h2>Current Selected Number</h2>
+      <p class="selected-number">{{ currentNumber || "---" }}</p>
+    </div>
+    <button (click)="confirmNumber()" class="btn btn-confirm">ထိုး</button>
+  </div>
+</div>

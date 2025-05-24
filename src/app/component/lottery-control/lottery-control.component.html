@@ -1,0 +1,11 @@
+<div class="lotteryControlInnerContainer">
+  <div class="navbar"></div>
+  <div class="table">
+    <app-table
+      [columns]="columns"
+      [data]="data"
+      [dataKeys]="dataKeys"
+      (actionClicked)="onUpdateGame($event)"
+    ></app-table>
+  </div>
+</div>

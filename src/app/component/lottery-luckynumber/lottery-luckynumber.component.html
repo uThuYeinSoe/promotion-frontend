@@ -1,0 +1,68 @@
+<div class="lotteryLuckyNumberInnerContainer" *ngIf="userRole == 'AGENT'">
+  <div class="navbar"></div>
+  <div class="table">
+    <app-table
+      [columns]="columns"
+      [data]="data"
+      [dataKeys]="dataKeys"
+      (actionClicked)="onUpdateGame($event)"
+    ></app-table>
+  </div>
+
+  <app-custom-popup *ngIf="showPopup" class="popup-container">
+    <div popup-title>Confirm Action</div>
+    <app-custom-input
+      [type]="gameNameType"
+      [(value)]="gameNameVal"
+      [disabled]="true"
+    ></app-custom-input>
+    <app-custom-input
+      [type]="rewardType"
+      [(value)]="rewardVal"
+      [placeHolder]="rewardPlaceHolder"
+    ></app-custom-input>
+
+    <app-custom-select
+      [options]="booleanStatus"
+      (valueChange)="onRewardStatusChanged($event)"
+    ></app-custom-select>
+
+    <div popup-footer>
+      <button (click)="rewardCreate()" class="promotion-button">Confirm</button>
+      <button (click)="onCancel()" class="promotion-button">Cancel</button>
+    </div>
+  </app-custom-popup>
+
+  <!-- <app-custom-popup *ngIf="updatePopUp" class="popup-container">
+    <div popup-title>Confirm Action</div>
+    <app-custom-input
+      [type]="gameIdType"
+      [(value)]="gameIdVal"
+      [disabled]="disabledStatus"
+    ></app-custom-input>
+    <app-custom-input
+      [type]="gameCodeType"
+      [(value)]="gameCodeVal"
+      [placeHolder]="gameCodeTypeName"
+    ></app-custom-input>
+    <app-custom-input
+      [type]="gameNameType"
+      [(value)]="gameNameVal"
+      [placeHolder]="gameNameTypeName"
+    ></app-custom-input>
+    <app-custom-select
+      [options]="gameStatusList"
+      [(value)]="selectedGameStatusList"
+      placeholder="Select a Game"
+    ></app-custom-select>
+    <app-custom-input
+      [type]="conversionRateType"
+      [(value)]="conversionRateVal"
+      [placeHolder]="conversionRateName"
+    ></app-custom-input>
+    <div popup-footer>
+      <button (click)="gameUpdate()" class="promotion-button">Confirm</button>
+      <button (click)="onCancel()" class="promotion-button">Cancel</button>
+    </div>
+  </app-custom-popup> -->
+</div>

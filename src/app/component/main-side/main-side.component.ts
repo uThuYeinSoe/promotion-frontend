@@ -12,6 +12,9 @@ import { AgentComponent } from '../agent/agent.component';
 import { GameAuthorityComponent } from '../game-authority/game-authority.component';
 import { GameItemComponent } from '../game-item/game-item.component';
 import { GameTicketComponent } from '../game-ticket/game-ticket.component';
+import { LotteryControlComponent } from '../lottery-control/lottery-control.component';
+import { LotteryLuckynumberComponent } from '../lottery-luckynumber/lottery-luckynumber.component';
+import { LotteryRewardComponent } from '../lottery-reward/lottery-reward.component';
 
 @Component({
   selector: 'app-main-side',
@@ -27,6 +30,9 @@ import { GameTicketComponent } from '../game-ticket/game-ticket.component';
     GameAuthorityComponent,
     GameItemComponent,
     GameTicketComponent,
+    LotteryControlComponent,
+    LotteryLuckynumberComponent,
+    LotteryRewardComponent,
   ],
   templateUrl: './main-side.component.html',
   styleUrl: './main-side.component.scss',

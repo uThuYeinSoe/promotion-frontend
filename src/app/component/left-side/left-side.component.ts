@@ -48,9 +48,24 @@ export class LeftSideComponent implements OnInit {
       value: '08000',
     },
     {
-      icon: 'fa-solid fa-gamepad',
+      icon: 'fa-solid fa-dice',
       label: 'Game Item',
       value: '09000',
+    },
+    {
+      icon: 'fa-solid fa-dice',
+      label: 'Lottery Lucky Number',
+      value: '13000',
+    },
+    {
+      icon: 'fa-solid fa-face-smile',
+      label: 'Lottery Lucky Reward',
+      value: '11000',
+    },
+    {
+      icon: 'fa-solid fa-toggle-off',
+      label: 'Lottery Control Status',
+      value: '12000',
     },
     {
       icon: 'fa-solid fa-trophy',

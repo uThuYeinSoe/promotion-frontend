@@ -8,6 +8,10 @@ import { ActivatedRoute } from '@angular/router';
 import { SpinWheelGameComponent } from '../../component/spin-wheel-game/spin-wheel-game.component';
 import { DiceComponent } from '../../component/dice/dice.component';
 import { LuckycardComponent } from '../../component/luckycard/luckycard.component';
+import { GoldlotteryComponent } from '../../component/goldlottery/goldlottery.component';
+import { IphonelotteryComponent } from '../../component/iphonelottery/iphonelottery.component';
+import { Lottery1001Component } from '../../component/lottery1001/lottery1001.component';
+import { Lottery1002Component } from '../../component/lottery1002/lottery1002.component';
 
 @Component({
   selector: 'app-game-page',
@@ -19,6 +23,10 @@ import { LuckycardComponent } from '../../component/luckycard/luckycard.componen
     SpinWheelGameComponent,
     DiceComponent,
     LuckycardComponent,
+    GoldlotteryComponent,
+    IphonelotteryComponent,
+    Lottery1001Component,
+    Lottery1002Component,
   ],
   templateUrl: './game-page.component.html',
   styleUrl: './game-page.component.scss',

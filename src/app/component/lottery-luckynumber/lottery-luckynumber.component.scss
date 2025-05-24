@@ -1,0 +1,56 @@
+.lotteryLuckyNumberInnerContainer {
+  width: 100%;
+  .navbar {
+    width: 100%;
+    height: 7rem;
+    background-color: var(--navbar-bgcolor);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 1.6rem;
+    margin-bottom: 1.6rem;
+    .promotion-button {
+      font-size: 1.6rem;
+      font-weight: 600;
+      padding: 1.6rem 3.2rem;
+      border-radius: 1rem;
+      cursor: pointer;
+      transition: all linear 0.2s;
+      border: none;
+      outline: none;
+      &:hover {
+        background-color: var(--selected-color);
+        border: none;
+        outline: none;
+      }
+    }
+  }
+  .table {
+    width: 98%;
+    background-color: var(--navbar-bgcolor);
+  }
+  .popup-container {
+    .promotion-button {
+      background-color: var(--selected-bgcolor);
+      margin-top: 2rem;
+      font-size: 1.6rem;
+      font-weight: 600;
+      padding: 1.6rem 3.2rem;
+      border-radius: 1rem;
+      cursor: pointer;
+      transition: all linear 0.2s;
+      border: none;
+      outline: none;
+      color: var(--main-text-color);
+      &:hover {
+        background-color: var(--selected-color);
+        border: none;
+        outline: none;
+        color: var(--navbar-bgcolor);
+      }
+      &:last-child {
+        margin-left: 1rem;
+      }
+    }
+  }
+}
